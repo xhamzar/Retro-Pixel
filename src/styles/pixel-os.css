@@ -1,0 +1,188 @@
+:root {
+  --lcd-bg: #D8FF9A;
+  --lcd-fg: #000000;
+  --lcd-sec: #BDE879;
+  --lcd-brightness: 1;
+}
+
+[data-lcd-theme='classic'] {
+  --lcd-bg: #D8FF9A;
+  --lcd-fg: #000000;
+  --lcd-sec: #BDE879;
+}
+
+[data-lcd-theme='amber'] {
+  --lcd-bg: #FFD57E;
+  --lcd-fg: #1C1100;
+  --lcd-sec: #E8BA5C;
+}
+
+[data-lcd-theme='paper'] {
+  --lcd-bg: #E6EAD9;
+  --lcd-fg: #111310;
+  --lcd-sec: #CFD6BE;
+}
+
+[data-lcd-theme='mint'] {
+  --lcd-bg: #B5F4D0;
+  --lcd-fg: #041C10;
+  --lcd-sec: #94DBB4;
+}
+
+[data-lcd-theme='inverted'] {
+  --lcd-bg: #0D1408;
+  --lcd-fg: #D8FF9A;
+  --lcd-sec: #1B2912;
+}
+
+html,
+body,
+body *,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-silkscreen), var(--font-vt323), 'Courier New', monospace !important;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: auto;
+  font-smooth: never;
+}
+
+.pixel-body {
+  background-color: #141712;
+  color: var(--lcd-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.lcd-surface {
+  background-color: var(--lcd-bg);
+  color: var(--lcd-fg);
+  font-variant-numeric: tabular-nums;
+  filter: brightness(var(--lcd-brightness, 1));
+  image-rendering: pixelated;
+}
+
+.lcd-secondary {
+  background-color: var(--lcd-sec);
+  color: var(--lcd-fg);
+}
+
+.lcd-selected {
+  background-color: var(--lcd-fg);
+  color: var(--lcd-bg);
+}
+
+.lcd-border {
+  border: 3px solid var(--lcd-fg);
+}
+
+.lcd-border-b {
+  border-bottom: 3px solid var(--lcd-fg);
+}
+
+.lcd-border-t {
+  border-top: 3px solid var(--lcd-fg);
+}
+
+.lcd-border-r {
+  border-right: 3px solid var(--lcd-fg);
+}
+
+/* Authentic dot-matrix LCD pixel sub-grid overlay */
+.lcd-pixel-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Pixel-stepped hardware phone chassis & tactile keys */
+.pixel-chassis {
+  border: 4px solid #3f463a;
+  background-color: #23281f;
+  box-shadow:
+    inset -4px -4px 0 #141712,
+    inset 4px 4px 0 #31372d,
+    0 0 0 4px #0b0d09,
+    10px 10px 0 0 #070906;
+}
+
+.pixel-panel {
+  border: 4px solid #3f463a;
+  background-color: #1c2019;
+  box-shadow:
+    inset -3px -3px 0 #11140f,
+    inset 3px 3px 0 #2b3126,
+    6px 6px 0 0 #080a07;
+}
+
+.pixel-key {
+  border: 3px solid #0b0d09;
+  box-shadow:
+    inset -3px -3px 0 #131610,
+    inset 3px 3px 0 #3b4236;
+  transition: transform 60ms steps(2, end);
+}
+
+.pixel-key:active {
+  transform: translate(1px, 2px);
+  box-shadow: inset 2px 2px 0 #0e110c;
+}
+
+.pixel-key-accent {
+  border: 3px solid #0b0d09;
+  box-shadow:
+    inset -3px -3px 0 #8fb854,
+    inset 3px 3px 0 #ecffc9;
+}
+
+.pixel-key-accent:active {
+  transform: translate(1px, 2px);
+  box-shadow: inset 2px 2px 0 #8fb854;
+}
+
+/* Crisp retro LCD scrollbars */
+.lcd-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.lcd-scroll::-webkit-scrollbar-track {
+  background: var(--lcd-sec);
+  border-left: 2px solid var(--lcd-fg);
+}
+
+.lcd-scroll::-webkit-scrollbar-thumb {
+  background: var(--lcd-fg);
+}
+
+/* Pixel-step focus pulse for active grid icon */
+@keyframes pixelPulse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.pixel-focus-bounce {
+  animation: pixelPulse 0.65s steps(2, end) infinite;
+}
+
+@keyframes lcdEnter {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lcd-screen-enter {
+  animation: lcdEnter 110ms steps(3, end);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

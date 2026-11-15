@@ -1,0 +1,8 @@
+{
+  "name": "Remix Retro Pixel OS",
+  "description": "A monochrome pixel LCD retro mobile operating system simulator with apps, games, persistent local storage, and offline PWA support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
