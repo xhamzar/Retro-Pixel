@@ -41,6 +41,7 @@ export type PixelIconName =
   | 'calculator'
   | 'reminder'
   | 'browser'
+  | 'maps'
   | 'download'
   | 'share'
   | 'hotspot'

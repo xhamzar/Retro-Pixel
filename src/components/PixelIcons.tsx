@@ -1144,6 +1144,24 @@ export const PixelIcon: React.FC<PixelIconProps> = ({ name, size = 32, className
         </svg>
       );
 
+    case 'maps':
+      return (
+        <svg {...common}>
+          {/* Drop shadow */}
+          <path d="M5 26h22v2H5v-2zm21-15h2v15h-2V11z" fill="currentColor" fillOpacity={0.28} />
+          {/* Folded pixel map base */}
+          <path d="M3 10h23v16H3V10zm2 2v12h19V12H5z" fill="currentColor" />
+          {/* Road lines on map */}
+          <path d="M5 17h6v2H5v-2zm4-5h2v12H9V12zm9 4h6v2h-6v-2z" fill="currentColor" fillOpacity={0.45} />
+          {/* Prominent pixel GPS location pin */}
+          <path
+            d="M14 2h6v2h2v5h-2v3h-2v3h-2v-3h-2V9h-2V4h2V2z"
+            fill="currentColor"
+          />
+          <rect x="16" y="5" width="2" height="3" fill="var(--lcd-bg)" />
+        </svg>
+      );
+
     default:
       return (
         <svg {...common}>

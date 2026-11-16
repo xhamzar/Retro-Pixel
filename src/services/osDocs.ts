@@ -274,17 +274,19 @@ export const OS_DOC_CHAPTERS: OSDocChapter[] = [
         ],
       },
       {
-        headingId: 'Studio Audio, Kamera, Radio & TV Live',
-        headingEn: 'Audio Studio, Camera, Radio & Live TV',
+        headingId: 'Studio Audio, Kamera, Radio Dunia & TV Live',
+        headingEn: 'Audio Studio, Camera, World Radio & Live TV',
         linesId: [
+          'Radio Dunia & FM: Jelajahi ribuan stasiun radio Indonesia & dunia melalui integrasi Radio Garden + Radio Browser tanpa API Key, lengkap dengan tuner jarum FM 87.5–108 MHz, VU meter piksel, pencarian global, favorit, timer tidur, serta Band Synth 8-Bit Offline.',
           'Studio Audio: Sequencer nada chiptune multi-kanal plus perekaman mikrofon dan simpan hasil ke folder Musik.',
           'Kamera & Perekam: Menggunakan izin kamera dan mikrofon browser nyata; foto tersimpan di DCIM dan rekaman di Musik/Lainnya.',
-          'TV Live & Radio: Memutar saluran streaming nyata dan stasiun radio publik saat WiFi aktif.',
+          'TV Live: Memutar saluran streaming TV nasional dan internasional saat WiFi aktif.',
         ],
         linesEn: [
+          'World & FM Radio: Tune into thousands of Indonesian & global stations via keyless Radio Garden + Radio Browser proxies, complete with 87.5–108 MHz FM dial, pixel VU equalizer, search, favorites, sleep timer, and Offline 8-Bit Synth band.',
           'Audio Studio: Multi-channel chiptune pattern sequencer plus microphone recording saved directly to Musik.',
           'Camera & Recorder: Uses real browser WebRTC camera & mic; photos save to DCIM and recordings to Musik/Lainnya.',
-          'Live TV & Radio: Stream public channels and live stations when WiFi is enabled.',
+          'Live TV: Stream public live channels when WiFi is enabled.',
         ],
       },
     ],
@@ -297,11 +299,24 @@ export const OS_DOC_CHAPTERS: OSDocChapter[] = [
     summaryId: 'Manajer Berkas 6 folder, Catatan, Kalender, Jam, Alarm, Kalkulator, Browser Web, Unduhan, dan Backup Cloud.',
     summaryEn: '6-folder File Manager, Notes, Calendar, Clock, Alarms, Calculator, Web Browser, Downloads, and Cloud Backup.',
     quickApps: [
+      { appId: 'maps', labelId: 'Peta & GPS', labelEn: 'Pixel Maps' },
       { appId: 'files', labelId: 'Buka Berkas', labelEn: 'Open Files' },
       { appId: 'browser', labelId: 'Buka Browser', labelEn: 'Open Browser' },
       { appId: 'cloud', labelId: 'Buka Cloud', labelEn: 'Open Cloud' },
     ],
     sections: [
+      {
+        headingId: 'Peta & GPS Piksel (OpenStreetMap)',
+        headingEn: 'Pixel Maps & Live GPS (OpenStreetMap)',
+        linesId: [
+          'Peta dunia nyata berbasis OpenStreetMap tanpa API Key, dilengkapi 3 mode visual yang bisa diganti langsung: LCD 2-Bit Dither, Retro Color Piksel, dan Taktis.',
+          'Tekan GPS untuk melacak posisi langsung via Geolocation browser, lihat kecepatan serta radius akurasi, cari lokasi/koordinat, hitung rute (Mobil/Sepeda/Jalan), dan simpan Pin Lokasi favorit.',
+        ],
+        linesEn: [
+          'Keyless OpenStreetMap navigation with 3 live visual modes: LCD 2-Bit Dither, Retro Pixel Color, and Tactical Ink.',
+          'Enable GPS for real-time Geolocation tracking, speed & accuracy rings, place search, turn-by-turn routing (Drive/Bike/Walk), and saved location pins.',
+        ],
+      },
       {
         headingId: 'Manajer Berkas & Folder Sistem',
         headingEn: 'File Manager & System Folders',

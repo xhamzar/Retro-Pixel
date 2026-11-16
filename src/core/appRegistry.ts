@@ -17,7 +17,7 @@ const VideoPlayerApp = lazy(() => import('@/src/apps/multimedia/MultimediaApps')
 const VideoEditorApp = lazy(() => import('@/src/apps/multimedia/VideoEditorApp').then((m) => ({ default: m.VideoEditorApp })));
 const PhotoEditorApp = lazy(() => import('@/src/apps/multimedia/PhotoEditorApp').then((m) => ({ default: m.PhotoEditorApp })));
 const CameraApp = lazy(() => import('@/src/apps/multimedia/MultimediaApps').then((m) => ({ default: m.CameraApp })));
-const RadioApp = lazy(() => import('@/src/apps/multimedia/MultimediaApps').then((m) => ({ default: m.RadioApp })));
+const RadioApp = lazy(() => import('@/src/apps/multimedia/RadioApp').then((m) => ({ default: m.RadioApp })));
 const TVApp = lazy(() => import('@/src/apps/multimedia/TVApp').then((m) => ({ default: m.TVApp })));
 const VoiceRecorderApp = lazy(() => import('@/src/apps/multimedia/MultimediaApps').then((m) => ({ default: m.VoiceRecorderApp })));
 
@@ -30,6 +30,7 @@ const CalculatorApp = lazy(() => import('@/src/apps/calculator/CalculatorApp').t
 const RemindersApp = lazy(() => import('@/src/apps/clock/ClockApps').then((m) => ({ default: m.RemindersApp })));
 
 const BrowserApp = lazy(() => import('@/src/apps/internet/InternetApps').then((m) => ({ default: m.BrowserApp })));
+const PixelMapsApp = lazy(() => import('@/src/apps/internet/PixelMapsApp').then((m) => ({ default: m.PixelMapsApp })));
 const DownloadsApp = lazy(() => import('@/src/apps/internet/InternetApps').then((m) => ({ default: m.DownloadsApp })));
 const SharingApp = lazy(() => import('@/src/apps/internet/InternetApps').then((m) => ({ default: m.SharingApp })));
 const HotspotApp = lazy(() => import('@/src/apps/internet/InternetApps').then((m) => ({ default: m.HotspotApp })));
@@ -83,7 +84,7 @@ export const APP_REGISTRY: AppDefinition[] = [
   { id: 'photo-editor', nameId: 'Editor Foto', nameEn: 'Photo Editor', category: 'multimedia', icon: 'photoEditor', component: PhotoEditorApp, featuredInGrid: true },
   { id: 'video', nameId: 'Video', nameEn: 'Video', category: 'multimedia', icon: 'video', component: VideoPlayerApp },
   { id: 'camera', nameId: 'Kamera', nameEn: 'Camera', category: 'multimedia', icon: 'camera', component: CameraApp },
-  { id: 'radio', nameId: 'Radio', nameEn: 'Radio', category: 'multimedia', icon: 'radio', component: RadioApp },
+  { id: 'radio', nameId: 'Radio Dunia', nameEn: 'World Radio', category: 'multimedia', icon: 'radio', component: RadioApp, featuredInGrid: true },
   { id: 'recorder', nameId: 'Perekam', nameEn: 'Recorder', category: 'multimedia', icon: 'mic', component: VoiceRecorderApp },
 
   // 3. PRODUCTIVITY
@@ -97,6 +98,7 @@ export const APP_REGISTRY: AppDefinition[] = [
 
   // 4. INTERNET
   { id: 'browser', nameId: 'Browser', nameEn: 'Browser', category: 'internet', icon: 'browser', component: BrowserApp, featuredInGrid: true },
+  { id: 'maps', nameId: 'Peta GPS', nameEn: 'Pixel Maps', category: 'internet', icon: 'maps', component: PixelMapsApp, featuredInGrid: true },
   { id: 'downloads', nameId: 'Unduhan', nameEn: 'Downloads', category: 'internet', icon: 'download', component: DownloadsApp },
   { id: 'sharing', nameId: 'Berbagi', nameEn: 'Sharing', category: 'internet', icon: 'share', component: SharingApp },
   { id: 'hotspot', nameId: 'Hotspot', nameEn: 'Hotspot', category: 'internet', icon: 'hotspot', component: HotspotApp },
