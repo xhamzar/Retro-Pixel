@@ -5,6 +5,7 @@ import { PixelIcon } from '@/src/components/PixelIcons';
 import { PixelWallpaperArt } from '@/src/components/PixelWallpapers';
 import { AppHeader } from '@/src/core/AppHeader';
 import { db } from '@/src/services/db';
+import { getOfficeFileKind, isOpenableInOffice } from '@/src/services/officeCodecs';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 import type { AppComponentProps, VirtualFileRecord, WallpaperId } from '@/src/types/os';
@@ -311,7 +312,7 @@ export const FileManagerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
                 <div className="border-2 border-[var(--lcd-fg)] p-2 text-xs whitespace-pre-wrap break-words max-h-40 overflow-y-auto lcd-scroll">
                   {inspectFile.content || (language === 'id' ? '(Berkas kosong)' : '(Empty file)')}
                 </div>
-                <div className="grid grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-3 gap-1.5">
                   <button
                     type="button"
                     onClick={() => setEditingText(inspectFile.content)}
@@ -321,14 +322,44 @@ export const FileManagerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
                   </button>
                   <button
                     type="button"
+                    onClick={() => openApp('office', { fileId: inspectFile.id })}
+                    className="py-1 border-2 border-[var(--lcd-fg)] bg-[var(--lcd-fg)] text-[var(--lcd-bg)] text-xs font-bold cursor-pointer"
+                  >
+                    Office
+                  </button>
+                  <button
+                    type="button"
                     onClick={() => openApp('ebook', { fileId: inspectFile.id })}
                     className="py-1 border-2 border-[var(--lcd-fg)] bg-[var(--lcd-sec)] text-xs font-bold cursor-pointer"
                   >
-                    {language === 'id' ? 'Baca di E-Book' : 'Read in E-Book'}
+                    E-Book
                   </button>
                 </div>
               </div>
             )
+          ) : isOpenableInOffice(inspectFile.name, inspectFile.mimeType) ? (
+            <div className="border-2 border-[var(--lcd-fg)] bg-[var(--lcd-sec)] p-2.5 space-y-2">
+              <div className="flex items-center gap-2">
+                <PixelIcon name="office" size={24} />
+                <div className="min-w-0">
+                  <div className="text-xs font-bold uppercase">
+                    Dokumen {(getOfficeFileKind(inspectFile.name, inspectFile.mimeType) || 'office').toUpperCase()}
+                  </div>
+                  <div className="text-[11px] opacity-85">
+                    {language === 'id'
+                      ? 'Siap dibuka dan disunting di Elixir Office.'
+                      : 'Ready to view and edit in Elixir Office.'}
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => openApp('office', { fileId: inspectFile.id })}
+                className="w-full py-1.5 border-2 border-[var(--lcd-fg)] bg-[var(--lcd-fg)] text-[var(--lcd-bg)] text-xs font-bold cursor-pointer"
+              >
+                {language === 'id' ? 'Buka di Elixir Office' : 'Open in Elixir Office'}
+              </button>
+            </div>
           ) : (
             <div className="border-2 border-[var(--lcd-fg)] p-2 text-xs">
               {language === 'id'
@@ -418,7 +449,9 @@ export const FileManagerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
                           ? 'gallery'
                           : file.mimeType.startsWith('audio/')
                             ? 'music'
-                            : 'note'
+                            : isOpenableInOffice(file.name, file.mimeType)
+                              ? 'office'
+                              : 'note'
                       }
                       size={20}
                     />

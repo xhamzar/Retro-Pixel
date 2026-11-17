@@ -496,6 +496,14 @@ export const PhotoEditorApp: React.FC<AppComponentProps> = ({ params, onBack }) 
         if (!active) return;
         setDcimFiles(rows);
 
+        if (typeof params?.imageDataUrl === 'string' && params.imageDataUrl.startsWith('data:image/')) {
+          await loadSourceIntoEditor(
+            params.imageDataUrl,
+            typeof params.title === 'string' && params.title.trim() ? params.title.trim() : 'PIXEL_ART',
+          );
+          return;
+        }
+
         if (params?.tab && WALLPAPERS.some((w) => w.id === params.tab)) {
           const wpId = params.tab as WallpaperId;
           const url = renderWallpaperToDataUrl(wpId);

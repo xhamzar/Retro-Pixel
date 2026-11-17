@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppHeader } from '@/src/core/AppHeader';
 import { db } from '@/src/services/db';
+import { radioEngine } from '@/src/services/radioEngine';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 import type { AppComponentProps } from '@/src/types/os';
@@ -353,6 +354,7 @@ export const AudioStudioApp: React.FC<AppComponentProps> = ({ onBack }) => {
       freq: tokenToFrequency(tok),
       durationMs: tokenToDurationMs(tok, bpm),
     }));
+    radioEngine.pauseForCompetingMedia();
     setPlaying(true);
     stopPlaybackRef.current = soundEngine.playNoteSequence(
       steps,

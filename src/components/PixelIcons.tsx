@@ -1162,6 +1162,23 @@ export const PixelIcon: React.FC<PixelIconProps> = ({ name, size = 32, className
         </svg>
       );
 
+    case 'office':
+      return (
+        <svg {...common}>
+          {/* Drop shadow */}
+          <path d="M6 27h21v2H6v-2zm20-19h2v19h-2V8z" fill="currentColor" fillOpacity={0.28} />
+          {/* Framed office page */}
+          <path d="M4 3h16v2h2v2h2v2h2v18H4V3zm2 2v20h18V11h-6V5H6z" fill="currentColor" />
+          {/* Folded page corner */}
+          <path d="M18 5h2v2h2v2h-4V5z" fill="currentColor" fillOpacity={0.45} />
+          {/* Ribbon / 3-in-1 grid & doc lines */}
+          <rect x="8" y="8" width="8" height="2" fill="currentColor" />
+          <rect x="8" y="13" width="6" height="5" fill="currentColor" />
+          <rect x="10" y="15" width="2" height="1" fill="var(--lcd-bg)" />
+          <path d="M16 13h6v2h-6v-2zm0 4h6v2h-6v-2zm-8 4h14v2H8v-2z" fill="currentColor" />
+        </svg>
+      );
+
     default:
       return (
         <svg {...common}>

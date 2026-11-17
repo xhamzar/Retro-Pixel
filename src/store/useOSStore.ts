@@ -8,6 +8,7 @@ import type {
   KeyCommand,
   LanguageCode,
   OSNotification,
+  OSRadioState,
   OSScreenType,
   OSThemeDefinition,
   OSThemeId,
@@ -66,6 +67,7 @@ interface OSState {
   toastMessage: string | null;
   softkeys: SoftkeyConfig;
   ringingAlarm: { id?: number; time: string; label: string } | null;
+  radio: OSRadioState;
 
   keyListeners: KeyListener[];
 
@@ -103,6 +105,7 @@ interface OSState {
   showToast: (msg: string) => void;
   triggerAlarm: (alarm: { id?: number; time: string; label: string }) => void;
   dismissRingingAlarm: () => void;
+  setRadioState: (patch: Partial<OSRadioState>) => void;
 }
 
 const DEFAULT_QUICK_SLOTS: [string, string, string, string] = ['messages', 'phone', 'apps-grid', 'camera'];
@@ -179,6 +182,25 @@ export const useOSStore = create<OSState>((set, get) => ({
   toastMessage: null,
   softkeys: {},
   ringingAlarm: null,
+  radio: {
+    sessionActive: false,
+    power: false,
+    status: 'idle',
+    freq: 102.2,
+    activeStation: {
+      id: 'rg-NZYf7QsQ',
+      source: 'rg',
+      rgId: 'NZYf7QsQ',
+      freq: 102.2,
+      name: 'Prambors FM 102.2 Jakarta',
+      city: 'Jakarta',
+      country: 'Indonesia',
+      genre: 'Hits / Pop Indonesia',
+      secure: true,
+    },
+    sleepMinutesLeft: 0,
+    errorNote: null,
+  },
   keyListeners: [],
 
   initOS: async () => {
@@ -489,4 +511,9 @@ export const useOSStore = create<OSState>((set, get) => ({
     soundEngine.stopChiptuneLoop();
     set({ ringingAlarm: null });
   },
+
+  setRadioState: (patch) =>
+    set((s) => ({
+      radio: { ...s.radio, ...patch },
+    })),
 }));

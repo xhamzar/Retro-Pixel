@@ -5,6 +5,7 @@ import { PixelIcon } from '@/src/components/PixelIcons';
 import { PixelWallpaperArt, WALLPAPERS } from '@/src/components/PixelWallpapers';
 import { AppHeader } from '@/src/core/AppHeader';
 import { db } from '@/src/services/db';
+import { radioEngine } from '@/src/services/radioEngine';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 import type { AppComponentProps, VirtualFileRecord } from '@/src/types/os';
@@ -42,6 +43,7 @@ export const VideoPlayerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
         setSavedVideos(rows);
         const target = params?.fileId ? rows.find((r) => r.id === params.fileId) : rows[0];
         if (target) {
+          radioEngine.pauseForCompetingMedia();
           setActiveFileId(target.id);
           setVideoSrc(target.content);
           setVideoName(target.name);
@@ -69,6 +71,7 @@ export const VideoPlayerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
   const togglePlay = () => {
     if (videoSrc && videoRef.current) {
       if (videoRef.current.paused) {
+        radioEngine.pauseForCompetingMedia();
         videoRef.current.play().catch(() => undefined);
         setPlaying(true);
       } else {
@@ -85,6 +88,7 @@ export const VideoPlayerApp: React.FC<AppComponentProps> = ({ params, onBack }) 
     if (!file) return;
     if (videoSrc && videoSrc.startsWith('blob:')) URL.revokeObjectURL(videoSrc);
     const url = URL.createObjectURL(file);
+    radioEngine.pauseForCompetingMedia();
     setActiveFileId(undefined);
     setVideoSrc(url);
     setVideoName(file.name);

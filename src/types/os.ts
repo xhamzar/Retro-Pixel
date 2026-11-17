@@ -35,6 +35,7 @@ export type PixelIconName =
   | 'mic'
   | 'folder'
   | 'note'
+  | 'office'
   | 'calendar'
   | 'clock'
   | 'alarm'
@@ -348,4 +349,32 @@ export interface TamagotchiPetState {
   unlockedEvolutions: TamagotchiEvolutionId[];
   history: TamagotchiGenerationEntry[];
 }
+
+export type OSRadioStatus = 'idle' | 'paused' | 'connecting' | 'live' | 'synth' | 'error';
+
+export interface OSRadioStation {
+  id: string;
+  source: 'rg' | 'rb' | 'synth';
+  name: string;
+  city: string;
+  country: string;
+  genre: string;
+  freq?: number;
+  streamUrl?: string;
+  rgId?: string;
+  secure: boolean;
+  bitrate?: number;
+  notes?: number[];
+}
+
+export interface OSRadioState {
+  sessionActive: boolean;
+  power: boolean;
+  status: OSRadioStatus;
+  freq: number;
+  activeStation: OSRadioStation;
+  sleepMinutesLeft: number;
+  errorNote: string | null;
+}
+
 

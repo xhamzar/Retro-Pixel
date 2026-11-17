@@ -14,6 +14,63 @@ import { db } from '@/src/services/db';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 
+interface ErrorBoundaryProps {
+  resetKey: string;
+  onBack: () => void;
+  language: 'id' | 'en';
+  children: React.ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+class AppErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(): ErrorBoundaryState {
+    return { hasError: true };
+  }
+
+  componentDidUpdate(prevProps: ErrorBoundaryProps) {
+    if (prevProps.resetKey !== this.props.resetKey && this.state.hasError) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="h-full flex flex-col items-center justify-center p-4 text-center bg-[var(--lcd-bg)] text-[var(--lcd-fg)] space-y-3">
+          <div className="text-sm font-bold">
+            {this.props.language === 'id' ? 'Gagal memuat aplikasi' : 'Failed to load app'}
+          </div>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => this.setState({ hasError: false })}
+              className="px-3 py-1 border-2 border-[var(--lcd-fg)] bg-[var(--lcd-fg)] text-[var(--lcd-bg)] text-xs font-bold cursor-pointer"
+            >
+              {this.props.language === 'id' ? 'Coba Lagi' : 'Retry'}
+            </button>
+            <button
+              type="button"
+              onClick={this.props.onBack}
+              className="px-3 py-1 border-2 border-[var(--lcd-fg)] bg-[var(--lcd-sec)] text-xs font-bold cursor-pointer"
+            >
+              {this.props.language === 'id' ? 'Kembali' : 'Back'}
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 export const LCDViewport: React.FC<{ className?: string }> = ({ className = '' }) => {
   const screen = useOSStore((s) => s.screen);
   const activeAppId = useOSStore((s) => s.activeAppId);
@@ -67,15 +124,17 @@ export const LCDViewport: React.FC<{ className?: string }> = ({ className = '' }
         {screen === 'categories' && <CategoryMenuScreen />}
         {screen === 'category-list' && <CategoryListScreen />}
         {screen === 'app' && ActiveComponent && activeAppId && (
-          <Suspense
-            fallback={
-              <div className="h-full flex items-center justify-center text-2xl font-bold bg-[var(--lcd-bg)] text-[var(--lcd-fg)]">
-                LOADING...
-              </div>
-            }
-          >
-            <ActiveComponent appId={activeAppId} params={activeAppParams} onBack={goBack} />
-          </Suspense>
+          <AppErrorBoundary resetKey={activeAppId} onBack={goBack} language={language}>
+            <Suspense
+              fallback={
+                <div className="h-full flex items-center justify-center text-2xl font-bold bg-[var(--lcd-bg)] text-[var(--lcd-fg)]">
+                  LOADING...
+                </div>
+              }
+            >
+              <ActiveComponent appId={activeAppId} params={activeAppParams} onBack={goBack} />
+            </Suspense>
+          </AppErrorBoundary>
         )}
       </div>
 

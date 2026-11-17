@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { PixelIcon } from '@/src/components/PixelIcons';
 import { AppHeader } from '@/src/core/AppHeader';
+import { radioEngine } from '@/src/services/radioEngine';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 import type { AppComponentProps } from '@/src/types/os';
@@ -196,8 +197,13 @@ export const TVApp: React.FC<AppComponentProps> = ({ onBack }) => {
     return TV_CHANNELS;
   }, [filter]);
 
+  useEffect(() => {
+    radioEngine.pauseForCompetingMedia();
+  }, []);
+
   const selectChannel = useCallback(
     (idx: number, switchToPlayer = false) => {
+      radioEngine.pauseForCompetingMedia();
       const normalized = (idx + TV_CHANNELS.length) % TV_CHANNELS.length;
       const ch = TV_CHANNELS[normalized];
       soundEngine.playCue('click');

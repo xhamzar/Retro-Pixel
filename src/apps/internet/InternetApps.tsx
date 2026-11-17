@@ -1224,13 +1224,24 @@ export const DownloadsApp: React.FC<AppComponentProps> = ({ onBack }) => {
             <div className="flex justify-between items-center text-[10px]">
               <span className="truncate opacity-75">{it.url}</span>
               <div className="flex gap-1.5 shrink-0 ml-2">
+                {it.status === 'completed' &&
+                  typeof it.fileId === 'number' &&
+                  /\.(docx?|xlsx?|csv|tsv|pptx|txt|md|html?|elxslides\.json)$/i.test(it.name) && (
+                    <button
+                      type="button"
+                      onClick={() => openApp('office', { fileId: it.fileId })}
+                      className="px-1.5 py-0.5 bg-[var(--lcd-fg)] text-[var(--lcd-bg)] font-bold cursor-pointer whitespace-nowrap"
+                    >
+                      {language === 'id' ? 'Buka di Office' : 'Open Office'}
+                    </button>
+                  )}
                 {it.status === 'completed' && (
                   <button
                     type="button"
                     onClick={() => openApp('files', { folder: 'Download' })}
                     className="underline font-bold cursor-pointer"
                   >
-                    {language === 'id' ? 'Buka' : 'Open'}
+                    {language === 'id' ? 'Berkas' : 'Files'}
                   </button>
                 )}
                 <button

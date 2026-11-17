@@ -108,7 +108,7 @@ export const HomeScreen: React.FC = () => {
           <img
             src={customWallpaperUrl}
             alt="Wallpaper"
-            className="w-full h-full max-h-44 object-cover grayscale contrast-150 opacity-85"
+            className="w-full h-full max-h-44 object-cover opacity-95"
             style={{ imageRendering: 'pixelated' }}
           />
         ) : (

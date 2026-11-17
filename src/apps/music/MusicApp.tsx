@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { PixelIcon } from '@/src/components/PixelIcons';
 import { AppHeader } from '@/src/core/AppHeader';
 import { db } from '@/src/services/db';
+import { radioEngine } from '@/src/services/radioEngine';
 import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 import type { AppComponentProps, VirtualFileRecord } from '@/src/types/os';
@@ -97,7 +98,6 @@ export const MusicApp: React.FC<AppComponentProps> = ({ params, onBack }) => {
       active = false;
       audio.pause();
       audio.src = '';
-      soundEngine.stopChiptuneLoop();
     };
   }, [params?.fileId]);
 
@@ -127,9 +127,10 @@ export const MusicApp: React.FC<AppComponentProps> = ({ params, onBack }) => {
 
     if (!playing) {
       audio.pause();
-      soundEngine.stopChiptuneLoop();
       return;
     }
+
+    radioEngine.pauseForCompetingMedia();
 
     if (track.audioUrl) {
       soundEngine.stopChiptuneLoop();

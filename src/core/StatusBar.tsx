@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { PixelIcon } from '@/src/components/PixelIcons';
 import { useOnlineStatus } from '@/src/core/PWAInstallButton';
+import { soundEngine } from '@/src/services/sound';
 import { useOSStore } from '@/src/store/useOSStore';
 
 export const StatusBar: React.FC = () => {
@@ -13,10 +14,12 @@ export const StatusBar: React.FC = () => {
   const hotspotEnabled = useOSStore((s) => s.hotspotEnabled);
   const signalStrength = useOSStore((s) => s.signalStrength);
   const notifications = useOSStore((s) => s.notifications);
+  const radio = useOSStore((s) => s.radio);
   const toggleNotificationShade = useOSStore((s) => s.toggleNotificationShade);
   const isOnline = useOnlineStatus();
 
   const [timeText, setTimeText] = useState('16:24');
+  const [eqStep, setEqStep] = useState(0);
 
   useEffect(() => {
     const updateClock = () => {
@@ -29,6 +32,16 @@ export const StatusBar: React.FC = () => {
     const id = setInterval(updateClock, 15000);
     return () => clearInterval(id);
   }, []);
+
+  const radioPlaying = radio.power && (radio.status === 'live' || radio.status === 'synth');
+
+  useEffect(() => {
+    if (!radioPlaying) return;
+    const id = setInterval(() => {
+      setEqStep((s) => (s + 1) % 4);
+    }, 240);
+    return () => clearInterval(id);
+  }, [radioPlaying]);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
@@ -64,8 +77,43 @@ export const StatusBar: React.FC = () => {
         {screen !== 'home' ? timeText : ''}
       </div>
 
-      {/* Right: Notification bell + Battery */}
-      <div className="flex items-center gap-2">
+      {/* Right: Background Radio indicator + Notification bell + Battery */}
+      <div className="flex items-center gap-1.5">
+        {radio.sessionActive && (
+          <button
+            type="button"
+            onClick={() => {
+              soundEngine.playCue('click');
+              toggleNotificationShade(true);
+            }}
+            className={`flex items-center gap-1 px-1 py-0.5 border border-[var(--lcd-fg)] cursor-pointer whitespace-nowrap shrink-0 ${
+              radioPlaying ? 'bg-[var(--lcd-fg)] text-[var(--lcd-bg)]' : 'bg-[var(--lcd-sec)]'
+            }`}
+            title={radio.activeStation.name}
+            aria-label={`Radio: ${radio.activeStation.name}`}
+          >
+            <PixelIcon name="radio" size={16} />
+            {radioPlaying ? (
+              <span className="flex items-end gap-[1px] h-3" aria-hidden="true">
+                {[0, 1, 2].map((idx) => {
+                  const h = 4 + ((eqStep + idx * 2) % 3) * 4;
+                  return (
+                    <span
+                      key={idx}
+                      className="w-[2px] bg-current"
+                      style={{ height: `${h}px` }}
+                    />
+                  );
+                })}
+              </span>
+            ) : (
+              <span className="text-[9px] font-bold leading-none">
+                {radio.status === 'connecting' ? '...' : 'II'}
+              </span>
+            )}
+          </button>
+        )}
+
         <button
           type="button"
           onClick={() => toggleNotificationShade()}

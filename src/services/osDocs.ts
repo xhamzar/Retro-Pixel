@@ -277,7 +277,7 @@ export const OS_DOC_CHAPTERS: OSDocChapter[] = [
         headingId: 'Studio Audio, Kamera, Radio Dunia & TV Live',
         headingEn: 'Audio Studio, Camera, World Radio & Live TV',
         linesId: [
-          'Radio Dunia & FM: Jelajahi ribuan stasiun radio Indonesia & dunia melalui integrasi Radio Garden + Radio Browser tanpa API Key, lengkap dengan tuner jarum FM 87.5–108 MHz, VU meter piksel, pencarian global, favorit, timer tidur, serta Band Synth 8-Bit Offline.',
+          'Radio Dunia & FM: Jelajahi ribuan stasiun radio Indonesia & dunia melalui Radio Garden + Radio Browser tanpa API Key. Radio terus berjalan di latar belakang saat membuka aplikasi lain, menampilkan ikon gelombang aktif di navbar atas (klik untuk membuka kontrol cepat di Laci Notifikasi), dan otomatis jeda saat TV/Video/Musik diputar.',
           'Studio Audio: Sequencer nada chiptune multi-kanal plus perekaman mikrofon dan simpan hasil ke folder Musik.',
           'Kamera & Perekam: Menggunakan izin kamera dan mikrofon browser nyata; foto tersimpan di DCIM dan rekaman di Musik/Lainnya.',
           'TV Live: Memutar saluran streaming TV nasional dan internasional saat WiFi aktif.',
@@ -296,15 +296,27 @@ export const OS_DOC_CHAPTERS: OSDocChapter[] = [
     badge: '04',
     titleId: 'Produktivitas, Berkas & Cloud',
     titleEn: 'Productivity, Files & Cloud',
-    summaryId: 'Manajer Berkas 6 folder, Catatan, Kalender, Jam, Alarm, Kalkulator, Browser Web, Unduhan, dan Backup Cloud.',
-    summaryEn: '6-folder File Manager, Notes, Calendar, Clock, Alarms, Calculator, Web Browser, Downloads, and Cloud Backup.',
+    summaryId: 'Elixir Office (Dokumen, Tabel, Slide), Manajer Berkas 6 folder, Catatan, Kalender, Jam, Alarm, Kalkulator, Browser Web, dan Cloud.',
+    summaryEn: 'Elixir Office (Docs, Sheets, Slides), 6-folder File Manager, Notes, Calendar, Clock, Alarms, Calculator, Web Browser, and Cloud Backup.',
     quickApps: [
+      { appId: 'office', labelId: 'Elixir Office', labelEn: 'Elixir Office' },
       { appId: 'maps', labelId: 'Peta & GPS', labelEn: 'Pixel Maps' },
       { appId: 'files', labelId: 'Buka Berkas', labelEn: 'Open Files' },
       { appId: 'browser', labelId: 'Buka Browser', labelEn: 'Open Browser' },
-      { appId: 'cloud', labelId: 'Buka Cloud', labelEn: 'Open Cloud' },
     ],
     sections: [
+      {
+        headingId: 'Elixir Office Suite (Dokumen, Tabel & Slide)',
+        headingEn: 'Elixir Office Suite (Writer, Calc & Slides)',
+        linesId: [
+          'Suite kantor luring bergaya Ribbon Microsoft Office untuk menyusun Dokumen (.doc/.html/.txt), Spreadsheet (.csv dengan rumus =SUM, =AVERAGE, =MIN, =MAX), dan Presentasi Slide layar penuh.',
+          'Seluruh berkas dapat disimpan langsung ke folder Dokumen OS, dibuka kembali dari Manajer Berkas, atau diekspor ke perangkat tanpa akun maupun pelacakan awan.',
+        ],
+        linesEn: [
+          'Offline Ribbon-style office suite for writing Documents (.doc/.html/.txt), calculating Spreadsheets (.csv with =SUM, =AVERAGE, =MIN, =MAX formulas), and presenting Slide decks.',
+          'All files save directly to OS Dokumen storage, reopen from File Manager, or export locally with zero telemetry.',
+        ],
+      },
       {
         headingId: 'Peta & GPS Piksel (OpenStreetMap)',
         headingEn: 'Pixel Maps & Live GPS (OpenStreetMap)',

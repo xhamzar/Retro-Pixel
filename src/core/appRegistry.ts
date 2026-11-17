@@ -22,6 +22,7 @@ const TVApp = lazy(() => import('@/src/apps/multimedia/TVApp').then((m) => ({ de
 const VoiceRecorderApp = lazy(() => import('@/src/apps/multimedia/MultimediaApps').then((m) => ({ default: m.VoiceRecorderApp })));
 
 const FileManagerApp = lazy(() => import('@/src/apps/files/FileManagerApp').then((m) => ({ default: m.FileManagerApp })));
+const ElixirOfficeApp = lazy(() => import('@/src/apps/productivity/ElixirOfficeApp').then((m) => ({ default: m.ElixirOfficeApp })));
 const NotesApp = lazy(() => import('@/src/apps/notes/NotesApp').then((m) => ({ default: m.NotesApp })));
 const CalendarApp = lazy(() => import('@/src/apps/calendar/CalendarApp').then((m) => ({ default: m.CalendarApp })));
 const ClockApp = lazy(() => import('@/src/apps/clock/ClockApps').then((m) => ({ default: m.ClockApp })));
@@ -88,6 +89,7 @@ export const APP_REGISTRY: AppDefinition[] = [
   { id: 'recorder', nameId: 'Perekam', nameEn: 'Recorder', category: 'multimedia', icon: 'mic', component: VoiceRecorderApp },
 
   // 3. PRODUCTIVITY
+  { id: 'office', nameId: 'Elixir Office', nameEn: 'Elixir Office', category: 'productivity', icon: 'office', component: ElixirOfficeApp, featuredInGrid: true },
   { id: 'files', nameId: 'Berkas', nameEn: 'Files', category: 'productivity', icon: 'folder', component: FileManagerApp },
   { id: 'notes', nameId: 'Catatan', nameEn: 'Notes', category: 'productivity', icon: 'note', component: NotesApp },
   { id: 'calendar', nameId: 'Kalender', nameEn: 'Calendar', category: 'productivity', icon: 'calendar', component: CalendarApp },
